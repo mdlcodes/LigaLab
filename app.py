@@ -26,7 +26,7 @@ def save_database(data):
 
 @app.route('/')
 def home():
-    return "Welcome to LigaLab"
+    return render_template('index.html')
 
 @app.route('/insights')
 def get_insights():
@@ -57,6 +57,78 @@ def create_league():
     save_database(db)
 
     return jsonify({"Message" : f"League '{league_name}' create succesfully for user '{username}'!"}), 201
+
+@app.route('/add_team', methods=['POST'])
+def add_team():
+    #add a basketball team
+    team_data = request.get_json()
+    username = team_data.get('username')
+    league_name = team_data.get('league_name')
+    team_name = team_data.get('team_name')
+
+    #ensure all fields are filled out
+    if not all([username, league_name, team_name]):
+        return jsonify({"error":"Missing, username, league name, or team name"}), 400
+    
+    db = load_database()
+    #ensure the user and league exist
+    if username not in db["users"]:
+        return jsonify({"error": "User profile not found"}), 404
+    if league_name not in db['users'][username]["custom_leagues"]:
+        return jsonify({"error": "League is not found in this user profile"}), 404
+    
+    if team_name in db["users"][username]["custom_leagues"][league_name]["teams"]:
+        return jsonify({"error":"Team name already exist in this league "}), 400
+    
+    db["users"][username]["custom_leagues"][league_name]["teams"][team_name] = {
+        "players" : {},
+        "team_wins": 0,
+        "team_losses": 0
+    }
+
+    save_database(db)
+
+    return jsonify({"message": f"Team '{team_name}' successfully added to '{league_name}'"}), 201
+
+@app.route('/add_player', methods=['POST'])
+def add_player():
+    player_data = request.get_json()
+    username = player_data.get('username')
+    league_name = player_data.get('league_name')
+    team_name = player_data.get('team_name')
+    player_name = player_data.get('player_name')
+
+    if not all([username, league_name, team_name, player_name]):
+        return jsonify({"error":"Missing username, league name, team name, player name"}), 400
+    
+    db = load_database()
+
+    #verify and no dupli
+
+    if username not in db['users']:
+        return jsonify({"error": "Manager Profile not found"}), 404
+    if league_name not in db['users'][username]['custom_leagues']:
+        return jsonify({"error": f"The {league_name} does not exist"}), 404
+    if team_name not in db['users'][username]['custom_leagues'][league_name]['teams']:
+        return jsonify({"error": "Team profile not found in this league"})
+    
+    #Ensure the player does not exist in the team yet
+    current_team_player = db["users"][username]['custom_leagues'][league_name]["teams"][team_name]['players']
+
+    if player_name in current_team_player:
+        return jsonify({"error": "This player already exist"}), 400
+    
+    #Inject player record slot
+    db["users"][username]["custom_leagues"][league_name]['teams'][team_name]["players"][player_name] = {
+        "scores": [], 
+        "assists": [],
+        "rebounds": []
+    }
+
+    save_database(db)
+
+    return jsonify({"message": f"Player '{player_name}' signed successfully"}), 201
+
 
 @app.route('/register', methods=['POST'])
 def register():

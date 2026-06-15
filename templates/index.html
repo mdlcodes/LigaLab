@@ -9,6 +9,10 @@
 <body>
 
     <div class="dashboard">
+        <div class="dev-banner">
+            ⚠️ <strong>SYSTEM NOTICE:</strong> This UI layout is a development draft strictly for backend database testing. The final interface design is currently under development.
+        </div>
+
         <h1>🏀 LigaLab Insights</h1>
         <hr>
         
@@ -26,16 +30,47 @@
             <span class="stat-label">Elite Scorers (Avg >= 15):</span>
             <div id="elite-scorers">Loading...</div>
         </div>
-    </div>
 
-    <script>
-        fetch('/insights')
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('total-players').innerText = data.total_active_players;
-                document.getElementById('mvp').innerText = data.mvp_tracker;
-                document.getElementById('elite-scorers').innerText = data.team_elite_scorers.join(', ');
-            });
-    </script>
+        <hr>
+
+        <h2>Control Panel</h2>
+        
+        <div class="form-card">
+            <h3>Create Manager Account</h3>
+            <input type="text" id="reg-username" placeholder="Username">
+            <input type="password" id="reg-password" placeholder="Password">
+            <button onclick="registerUser()">Register</button>
+            <p id="reg-message" class="message"></p>
+        </div>
+
+        <div class="form-card">
+            <h3>Create Custom League</h3>
+            <input type="text" id="league-mgr" placeholder="Your Registered Username">
+            <input type="text" id="league-name" placeholder="League Name (e.g. Inter-Barangay)">
+            <button onclick="createNewLeague()">Create League</button>
+            <p id="league-message" class="message"></p>
+        </div>
+          
+        <div class="form-card">
+            <h3>Add Team to League</h3>
+            <input type="text" id="team-mgr" placeholder="Your Registered Username">
+            <input type="text" id="team-league" placeholder="League Name (e.g. Inter-Barangay)">
+            <input type="text" id="team-name" placeholder="New Team Name (e.g. Barangay Kings)">
+            <button onclick="addNewTeam()">Add Team</button>
+            <p id="team-message" class="message"></p>
+        </div>
+              
+        <div class="form-card">
+            <h3>Recruit Player to Team Roster</h3>
+            <input type="text" id="player-mgr" placeholder="Your Registered Username">
+            <input type="text" id="player-league" placeholder="League Name (e.g. Inter-Barangay)">
+            <input type="text" id="player-team" placeholder="Team Name (e.g. Barangay Kings)">
+            <input type="text" id="player-name" placeholder="Player Name (e.g. Zibai)">
+            <button onclick="addNewPlayer()">Sign Player</button>
+            <p id="player-message" class="message"></p>
+        </div>
+    </div> 
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
