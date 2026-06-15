@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LigaLab Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="dashboard">
+        <h1>🏀 LigaLab Insights</h1>
+        <hr>
+        
+        <div class="stat-card">
+            <span class="stat-label">Total Active Players:</span>
+            <span id="total-players">Loading...</span>
+        </div>
+
+        <div class="stat-card">
+            <span class="stat-label">MVP Tracker Leader:</span>
+            <span id="mvp">Loading...</span>
+        </div>
+
+        <div class="stat-card">
+            <span class="stat-label">Elite Scorers (Avg >= 15):</span>
+            <div id="elite-scorers">Loading...</div>
+        </div>
+    </div>
+
+    <script>
+        fetch('/insights')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('total-players').innerText = data.total_active_players;
+                document.getElementById('mvp').innerText = data.mvp_tracker;
+                document.getElementById('elite-scorers').innerText = data.team_elite_scorers.join(', ');
+            });
+    </script>
+</body>
+</html>

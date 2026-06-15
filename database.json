@@ -1,0 +1,13 @@
+{
+    "users": {
+        "Michelle": {
+            "password": "secure123",
+            "custom_leagues": {
+                "Inter-Barangay": {
+                    "teams": {}
+                }
+            }
+        }
+    },
+    "custom_leagues": {}
+}

@@ -8,7 +8,9 @@ def add_game_performance(roster, jersey, points):
     if jersey in roster:
         if points >= 0:
             roster[jersey]['scores'].append(points)
-        return f"Added {points} pts to {roster[jersey]['name']}'s record successfully!"
+            return f"Added {points} pts to {roster[jersey]['name']}'s record successfully!"
+        else:
+            return "Invalid score value!"
     else: 
         return "Player not found!"
 def generate_team_insights(roster):
