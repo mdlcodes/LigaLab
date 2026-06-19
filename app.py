@@ -25,8 +25,33 @@ def save_database(data):
         json.dump(data, file, indent = 4)
 
 @app.route('/')
-def home():
+def home_gateway():
+    # Show the clean Split Hero signup/login gate first
+    return render_template('login.html')
+
+@app.route('/dashboard')
+def dashboard_view():
+    # This is the actual inner tournament control center panel
     return render_template('index.html')
+
+@app.route('/api/login', methods=['POST'])
+def api_login():
+    data = request.get_json()
+    username = data.get('username', '').strip()
+    password = data.get('password', '')
+
+    if not username or not password:
+        return jsonify({"status": "error", "message": "Missing username or password"})
+    
+    db = load_database()
+
+    if "users" in db and username in db["users"]:
+        if db["users"][username]["password"] == password:
+            return jsonify({"statud": "success", "message": "Authentication sucessful"})
+        else:
+            return jsonify({"status": "error", "message": "Incorrect password or username"})
+    else:
+        return jsonify({"status": "error", "message": "Username not found.Please try again"})
 
 @app.route('/insights')
 def get_insights():

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LigaLab - Welcome Coach</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="gateway-body">
+
+    <div class="gateway-container">
+        <!-- LEFT COLUMN: The Pitch & Social Proof -->
+        <div class="pitch-side">
+            <span class="brand-logo">🏀 LigaLab</span>
+            <h1>Your League. Your Stats.</h1>
+            <p class="pitch-subtext">
+                Manage local basketball tournaments, customize team rosters, and track live match statistics all in one powerful, custom dashboard.
+            </p>
+            
+            <ul class="feature-list">
+                <li>📋 Build custom team rosters & sign active players</li>
+                <li>📅 Schedule matchups with an intuitive visual generator</li>
+                <li>📊 Track advanced leaderboards for points, blocks, & rebounds</li>
+            </ul>
+
+            <div class="social-proof">
+                <span class="stars">⭐⭐⭐⭐⭐</span>
+                <p>Loved by local tournament league organizers.</p>
+            </div>
+        </div>
+
+        <!-- RIGHT COLUMN: The Floating Form Card -->
+        <div class="auth-card">
+            <h2>Welcome Back, Coach</h2>
+            <p class="card-subtitle">Sign in to manage your custom tournament boards.</p>
+            
+            <div class="input-group">
+                <label for="login-username">Username</label>
+                <input type="text" id="login-username" placeholder="e.g. CoachMichelle">
+            </div>
+
+            <div class="input-group">
+                <label for="login-password">Password</label>
+                <input type="password" id="login-password" placeholder="••••••••">
+            </div>
+
+            <button class="btn-primary" onclick="loginManager()">Sign In</button>
+            
+            <p id="login-error" class="message error-msg"></p>
+
+            <div class="card-footer">
+                <p>Don't have an account? <a href="#" onclick="toggleAuthMode()">Sign up here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

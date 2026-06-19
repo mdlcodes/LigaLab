@@ -52,3 +52,174 @@ button:hover { background-color: #059669; }
     font-size: 0.9rem;
     line-height: 1.4;
 }
+
+/* ==========================================
+   GATEWAY REGISTRATION / LOGIN THEME (DARK)
+   ========================================== */
+
+.gateway-body {
+    background-color: #0B0F19; /* 60% Dominant Dark Midnight Blue */
+    color: #FFFFFF;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.gateway-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    max-width: 1100px;
+    width: 100%;
+    align-items: center;
+}
+
+/* Left Column Styling */
+.pitch-side {
+    padding-right: 20px;
+}
+
+.brand-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #FF6B00; /* 10% Energetic Accent Basketball Orange */
+    display: block;
+    margin-bottom: 20px;
+}
+
+.pitch-side h1 {
+    font-size: 3rem;
+    margin: 0 0 15px 0;
+    line-height: 1.2;
+}
+
+.pitch-subtext {
+    font-size: 1.1rem;
+    color: #9CA3AF;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 40px 0;
+}
+
+.feature-list li {
+    font-size: 1rem;
+    margin-bottom: 12px;
+    color: #E5E7EB;
+}
+
+.social-proof {
+    border-top: 1px solid #1F2937;
+    padding-top: 20px;
+}
+
+.social-proof .stars {
+    font-size: 1.2rem;
+}
+
+.social-proof p {
+    margin: 5px 0 0 0;
+    color: #6B7280;
+    font-size: 0.9rem;
+}
+
+/* Right Column: Floating Auth Card (30% Secondary) */
+.auth-card {
+    background-color: #1F2937; /* Clean Solid Secondary Card background */
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    color: #FFFFFF;
+}
+
+.auth-card h2 {
+    margin: 0 0 8px 0;
+    font-size: 1.75rem;
+}
+
+.card-subtitle {
+    color: #9CA3AF;
+    margin: 0 0 25px 0;
+    font-size: 0.95rem;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+    color: #9CA3AF;
+}
+
+.input-group input {
+    background-color: #111827;
+    border: 1px solid #374151;
+    border-radius: 6px;
+    padding: 12px;
+    color: #FFFFFF;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.input-group input:focus {
+    border-color: #FF6B00;
+}
+
+/* Accent Buttons */
+.btn-primary {
+    background-color: #FF6B00;
+    color: #FFFFFF;
+    border: none;
+    width: 100%;
+    padding: 14px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: #E05E00;
+}
+
+.card-footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #9CA3AF;
+}
+
+.card-footer a {
+    color: #FF6B00;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.card-footer a:hover {
+    text-decoration: underline;
+}
+
+.error-msg {
+    color: #EF4444;
+    font-size: 0.85rem;
+    margin-top: 10px;
+    text-align: center;
+}
