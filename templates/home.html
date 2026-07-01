@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, intial-scale=1.0">
+        <title>LigaLab</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+
+    <body class="dashboard-body">
+        <div class="dashboard-wrapper">
+            <aside class="sidebar">
+                <div class="sidebar-brand">LIGALAB</div>
+                <nav class="sidebar-menu">
+                    <a href="#" class="menu-item active">Home</a>
+                    <a href="#" class="menu-item">Leagues</a>
+                    <a href="#" class="menu-item">Teams</a>
+                    <a href="#" class="menu-item">Players</a>
+                    <a href="#" class="menu-item">Schedule Generator</a>
+                    <a href="#" class="menu-item">Settings</a>
+                </nav>
+                <div class="sidebar-user-badge">
+                    Coach Michelle
+                </div>
+            </aside>
+
+            <main class="dashboard-content">
+                <header class="content-header">
+                    <div class="welcome-block">
+                        <h1>Welcome Back, Coach Michelle!</h1>
+                    </div>
+                </header>
+
+                <section class="metrics-grid">
+                    <div class="metric-card">
+                        <span class="metric-label">Registered Leagues</span>
+                        <h2 class="metric-value">0</h2>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-label">Registered Teams</span>
+                        <h2 class="metric-value">0</h2>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-label">Registered Players</span>
+                        <h2 class="metric-value">0</h2>
+                    </div>
+                </section>
+
+                <section class="data-board-panel">
+                    <div class="board-header">
+                        <h3>Current League Standing</h3>
+                        <button class="btn-secondary">+ Add Match Result</button>
+                    </div>
+                    <div class="board-empty-state">
+                        <p class="empty-text-highlight">No Registered League Yet.</p>
+                        <p class="empty-subtext">Go to <strong>Leagues</strong> or <strong>Teams</strong> in the sidebar to register your local tournament data.</p>
+                    </div>
+                </section>
+
+                <section class="data-board-panel">
+                    <div class="board-header">
+                        <h3>Best Player Standing</h3>
+                        <button class="btn-secondary">+ Add Match Result</button>
+                    </div>
+                    <div class="board-empty-state">
+                        <p class="empty-text-highlight">No Registered Player Yet.</p>
+                        <p class="empty-subtext">Go to <strong>Players</strong> tab in the sidebar to create a player</p>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </body>
+</html>
