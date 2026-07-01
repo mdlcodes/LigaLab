@@ -1,59 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LigaLab - Welcome Coach</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body class="gateway-body">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>LigaLab</title>
+    </head>
 
-    <div class="gateway-container">
-        <!-- LEFT COLUMN: The Pitch & Social Proof -->
-        <div class="pitch-side">
-            <span class="brand-logo">🏀 LigaLab</span>
-            <h1>Your League. Your Stats.</h1>
-            <p class="pitch-subtext">
-                Manage local basketball tournaments, customize team rosters, and track live match statistics all in one powerful, custom dashboard.
-            </p>
-            
-            <ul class="feature-list">
-                <li>📋 Build custom team rosters & sign active players</li>
-                <li>📅 Schedule matchups with an intuitive visual generator</li>
-                <li>📊 Track advanced leaderboards for points, blocks, & rebounds</li>
-            </ul>
-
-            <div class="social-proof">
-                <span class="stars">⭐⭐⭐⭐⭐</span>
-                <p>Loved by local tournament league organizers.</p>
+    <body>
+        <div class="gateway-container">
+            <div class="pitch-side">
+                <span class="brand-logo">LIGALAB</span>
+                <h1>YOUR LEAGUE. YOUR STATS.</h1>
+                <p>Manage local basketball tournaments, customize team rosters, and track live match statistics all in one powerful, custom dashboard.</p>
             </div>
-        </div>
 
-        <!-- RIGHT COLUMN: The Floating Form Card -->
-        <div class="auth-card">
-            <h2>Welcome Back, Coach</h2>
-            <p class="card-subtitle">Sign in to manage your custom tournament boards.</p>
-            
+            <div class="auth-wrapper">
+                <div class="auth-card">
+                    <h2>Welcome Back, Coach!</h2>
+                    <p>Sign in toi manage your custom tournament boards.</p>
+                </div>
+
             <div class="input-group">
-                <label for="login-username">Username</label>
-                <input type="text" id="login-username" placeholder="e.g. CoachMichelle">
+                <label>USERNAME</label>
+                <input type="text" id="login-username" placeholder="e.g Coach Michelle">            
             </div>
 
             <div class="input-group">
-                <label for="login-password">Password</label>
-                <input type="password" id="login-password" placeholder="••••••••">
+                <label>PASSWORD</label>
+                <input type="password" id="login-password" placeholder="Enter your password">
             </div>
-
-            <button class="btn-primary" onclick="loginManager()">Sign In</button>
-            
+            <button class="btn-primary" onclick="loginManager()">SIGN IN</button>
             <p id="login-error" class="message error-msg"></p>
-
             <div class="card-footer">
-                <p>Don't have an account? <a href="#" onclick="toggleAuthMode()">Sign up here</a></p>
+                <p>Don't have an account?<a href="#" onclick="toggleAuthMode()"></a></p>
+            </div>
             </div>
         </div>
-    </div>
 
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
-</body>
+
+        <div class="features-section">
+            <h2 class="section-title">FEATURES</h2>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>DYNAMIC LEAGUE DASHBOARD</h3>
+                    <p>Track standings, game schedules, and team metrics in real-time.</p>
+                </div>
+                <div class="features-card">
+                    <h3>Automated Roster Management</h3>
+                    <p>Seamlessly register teams, recruit players, and manage rosters.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>Smart Schedule Generator</h3>
+                    <p>Automatically generate tournament brackets and update results.</p>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <h2>READY TO ELEVATE YOUR LEAGUE?</h2>
+            <p>join local coaches and start building your custom basketball league dashboard in seconds.</p>
+            <button class="btn-accent" onclick="scrollToTop()">CREATE YOUR ACCOUNT</button>        </div>
+
+        <footer class="main-footer">
+            <div class="footer-columns">
+                <div class="footer-col brand-col">
+                    <h3>LIGALAB</h3>
+                    <p>Elevating local sports management with smart tournament infrastructure/</p>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Platform</h4>
+                    <ul>
+                        <li><a href="#">Dashboard</a></li>
+                        <li><a href="#">League Manager</a></li>
+                        <li><a href="#">Roster Analytics</a></li>
+                        <li><a href="#">Schedule Generator</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Developer API</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 LigaLab. Built for tournament organizers. All rights reserved.</p>            
+            </div>
+        </footer>
+    </body>
 </html>
