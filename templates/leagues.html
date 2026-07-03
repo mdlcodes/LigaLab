@@ -1,0 +1,58 @@
+<!DOCTYPE htmL>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>LigaLab</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+    </head>
+
+    <body class="dashboard-body">
+        <div class="dashboard-wrapper">
+            <aside class="sidebar">
+                <div class="sidebar-brand">LIGALAB</div>
+                    <nav class="sidebar-menu">
+                        <a href="#" class="menu-item active">Home</a>
+                        <a href="#" class="menu-item">Leagues</a>
+                        <a href="#" class="menu-item">Teams</a>
+                        <a href="#" class="menu-item">Players</a>
+                        <a href="#" class="menu-item">Schedule Generator</a>
+                    </nav>
+
+                    <div class="sidebar-user-badge">Coach Michelle</div>
+            </aside>
+
+            <main class="dashboard-content">
+                <header class="content-header">
+                    <div class="hightlight-block">
+                        <h1>League Control Center</h1>
+                    </div>
+                </header>
+
+                <div class="control-deck">
+                    <div class="form-card">
+                        <h3>Register New League</h3>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>League ID</th>
+                                <th>Tournament Name</th>
+                                <th>Season Term</th>
+                                <th>Teams</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>LG-2026-101</strong></td>
+                                <td>CICS Intramurals</td>
+                                <td>First Term 2026</td>
+                                <td><span style="color: #FF6B00; font-weight: 700">0</span> Teams Registered</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>

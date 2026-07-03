@@ -29,6 +29,14 @@ def home_gateway():
     # Show the clean Split Hero signup/login gate first
     return render_template('login.html')
 
+@app.route('/home')
+def home():
+    return render_template('home.html')
+
+@app.route('/leagues')
+def leagues():
+    return render_template('leagues.html')
+
 @app.route('/dashboard')
 def dashboard_view():
     # This is the actual inner tournament control center panel
@@ -47,7 +55,7 @@ def api_login():
 
     if "users" in db and username in db["users"]:
         if db["users"][username]["password"] == password:
-            return jsonify({"statud": "success", "message": "Authentication sucessful"})
+            return jsonify({"status": "success", "message": "Authentication sucessful"})
         else:
             return jsonify({"status": "error", "message": "Incorrect password or username"})
     else:
