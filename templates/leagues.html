@@ -12,8 +12,8 @@
             <aside class="sidebar">
                 <div class="sidebar-brand">LIGALAB</div>
                     <nav class="sidebar-menu">
-                        <a href="#" class="menu-item active">Home</a>
-                        <a href="#" class="menu-item">Leagues</a>
+                        <a href="{{ url_for('home')}}" class="menu-item">Home</a>
+                        <a href="{{ url_for('leagues') }}" class="menu-item active">Leagues</a>
                         <a href="#" class="menu-item">Teams</a>
                         <a href="#" class="menu-item">Players</a>
                         <a href="#" class="menu-item">Schedule Generator</a>
@@ -32,7 +32,23 @@
                 <div class="control-deck">
                     <div class="form-card">
                         <h3>Register New League</h3>
+                        <form action="#" method="POST">
+                            <div class="input-group">
+                                <label for="league-name">Name of the League</label>
+                                <input type="text" id="league-name" placeholder="e.g SFBVL " required>
+                            </div>
+                            <div class="input-group">
+                                <label for="league-season">Season Year</label>
+                                <input type="text" id="league-season" placeholder="2025-2026">
+                            </div>
+                            <button type="submit" class="btn-primary-action">Save League</button>
+                        </form>
                     </div>
+
+                    <div class="data-panel">
+                        <div class="panel-header">
+                            <h3>Registered Leagues</h3>
+                        </div>
                     <table class="data-table">
                         <thead>
                             <tr>
@@ -51,6 +67,7 @@
                             </tr>
                         </tbody>
                     </table>
+                </div>
                 </div>
             </main>
         </div>
