@@ -37,6 +37,14 @@ def home():
 def leagues():
     return render_template('leagues.html')
 
+@app.route('/teams')
+def teams():
+    return render_template('teams.html')
+
+@app.route('/players')
+def players():
+    return render_template('players.html')
+
 @app.route('/dashboard')
 def dashboard_view():
     # This is the actual inner tournament control center panel

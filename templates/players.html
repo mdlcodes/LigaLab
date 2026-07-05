@@ -1,0 +1,84 @@
+<!DOCTYPE htmL>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>LigaLab</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+    </head>
+
+    <body class="dashboard-body">
+        <div class="dashboard-wrapper">
+            <aside class="sidebar">
+                <div class="sidebar-brand">LIGALAB</div>
+                    <nav class="sidebar-menu">
+                        <a href="{{ url_for('home')}}" class="menu-item">Home</a>
+                        <a href="{{ url_for('leagues') }}" class="menu-item">Leagues</a>
+                        <a href="{{ url_for('teams')}}" class="menu-item">Teams</a>
+                        <a href="#" class="menu-item active">Players</a>
+                        <a href="#" class="menu-item">Schedule Generator</a>
+                    </nav>
+
+                    <div class="sidebar-user-badge">Coach Michelle</div>
+            </aside>
+
+            <main class="dashboard-content">
+
+                <header class="content-header">
+                    <div class="welcome-block">
+                        <h1>Your Players</h1>
+                    </div>
+
+                    <div class="control-deck">
+
+                        <div class="form-card">
+                            <h3>Add Player</h3>
+
+                            <form action="#" method="POST">
+                                <div class="input-group">
+                                    <label for="player-name">Player Name</label>
+                                    <input type="text" id="player-name" placeholder="Wembanyamen" required>
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="player-number">Jersey Number</label>
+                                    <input type="text" id="player-number" placeholder="07" required>
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="player-team">Player Team</label>
+                                    <input type="text" placeholder="Spurs">
+                                </div>
+
+                                <button type="submit" class="btn-primary-action">Save Player</button>
+                            </form>
+                        </div>
+
+                        <div class="data-panel">
+                            <div class="panel-header">
+                                <h3>Registered Players</h3>
+                            </div>
+
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Jersey Number</th>
+                                        <th>Player Name</th>
+                                        <th>Team</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th><strong>#07</strong></th>
+                                        <th>Wembanyamen</th>
+                                        <th>Spurs</th>
+                                        <th><span style="color: #64748B; font-weight: 600;">Active</span></th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </header>
+            </main>
+
