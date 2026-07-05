@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>LigaLab</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+    </head>
+
+    <body class="dashboard-body">
+        <div class="dashboard-wrapper">
+            <aside class="sidebar">
+                <div class="sidebar-brand">LIGALAB</div>
+                    <nav class="sidebar-menu">
+                        <a href="{{ url_for('home')}}" class="menu-item">Home</a>
+                        <a href="{{ url_for('leagues') }}" class="menu-item">Leagues</a>
+                        <a href="{{ url_for('teams')}}" class="menu-item active">Teams</a>
+                        <a href="#" class="menu-item">Players</a>
+                        <a href="#" class="menu-item">Schedule Generator</a>
+                    </nav>
+
+                    <div class="sidebar-user-badge">Coach Michelle</div>
+            </aside>
+            
+            <main class="dashboard-content">
+
+                <header>
+                <div class="welcome-block">
+                    <h1> Your Teams </h1>
+                </div>
+                </header>
+                
+                <div class="control-deck">
+                    <div class="form-card">
+                        <h3>Register Teams</h3>
+                        <form action="#" method="POST">
+                            <div class="input-group">
+                                <label for="team-name">Team Name</label>
+                                <input type="text" id="team-name" placeholder="Spurs">
+                            </div>
+                            <div class="input-group">
+                                <label for="team-color">Team Color</label>
+                                <input type="text" id="team-color" placeholder="Yellow">
+                            </div>
+                            <button type="submit" class="btn-primary-action">Save Team</button>
+                        </form>
+                    </div>
+
+                <div class="data-panel">
+                    <div class="panel-header">
+                        <h3>Registered Teams</h3>
+                    </div>
+
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Team ID</th>
+                                <th>Squad Name</th>
+                                <th>Jersey Color</th>
+                                <th>Active Roster</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>TM-2026-01</strong></td>
+                                <td>Spurs</td>
+                                <td>Gray</td>
+                                <td><span style="color: #64749B; font-weight: 600;">0 Players</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                </div>
+            </main>
+</html>
