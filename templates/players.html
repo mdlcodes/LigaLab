@@ -15,8 +15,8 @@
                         <a href="{{ url_for('home')}}" class="menu-item">Home</a>
                         <a href="{{ url_for('leagues') }}" class="menu-item">Leagues</a>
                         <a href="{{ url_for('teams')}}" class="menu-item">Teams</a>
-                        <a href="#" class="menu-item active">Players</a>
-                        <a href="#" class="menu-item">Schedule Generator</a>
+                        <a href="{{ url_for('players')}}" class="menu-item active">Players</a>
+                        <a href="{{ url_for('schedules')}}" class="menu-item">Schedule Generator</a>
                     </nav>
 
                     <div class="sidebar-user-badge">Coach Michelle</div>
@@ -37,17 +37,17 @@
                             <form action="#" method="POST">
                                 <div class="input-group">
                                     <label for="player-name">Player Name</label>
-                                    <input type="text" id="player-name" placeholder="Wembanyamen" required>
+                                    <input type="text" id="player-name" name="ligalab-player-name" placeholder="Wembanyamen" required>
                                 </div>
 
                                 <div class="input-group">
                                     <label for="player-number">Jersey Number</label>
-                                    <input type="text" id="player-number" placeholder="07" required>
+                                    <input type="text" id="player-number" name="ligalab-player-number" placeholder="07" required>
                                 </div>
 
                                 <div class="input-group">
                                     <label for="player-team">Player Team</label>
-                                    <input type="text" placeholder="Spurs">
+                                    <input type="text" placeholder="Spurs" name="ligalab-player-team">
                                 </div>
 
                                 <button type="submit" class="btn-primary-action">Save Player</button>
@@ -69,12 +69,21 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {% for player in players %}
                                     <tr>
-                                        <th><strong>#07</strong></th>
-                                        <th>Wembanyamen</th>
-                                        <th>Spurs</th>
+                                        <th><strong>{{ player.number }}</strong></th>
+                                        <th>{{ player.name }}</th>
+                                        <th>{{ player.teams }}</th>
                                         <th><span style="color: #64748B; font-weight: 600;">Active</span></th>
                                     </tr>
+                                    {% else %}
+
+                                    <tr>
+                                        <td colspan="4" style="text-align:center; color: #94A3B8; font-style: italic; padding: 20px;">
+                                            NO registered player yet.
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
                                 </tbody>
                             </table>
                         </div>

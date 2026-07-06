@@ -93,9 +93,35 @@ def teams():
     
     return render_template('teams.html', teams=teams_database)
 
-@app.route('/players')
+
+#PLAYER
+players_database = []
+
+player_counter = 1
+
+@app.route('/players', methods=['GET', 'POST'])
 def players():
-    return render_template('players.html')
+    global player_counter
+
+    if request.method == 'POST':
+        player_name = request.form.get('ligalab-player-name')
+        player_number = request.form.get('ligalab-player-number')
+        player_team = request.form.get('ligalab-player-team')
+
+        if player_name and player_number and player_team:
+            player_counter += 1
+
+        new_player={
+            "name": player_name,
+            "number": player_number,
+            "teams": player_team,
+            "status": "Active Roster"
+        }
+
+        players_database.append(new_player)
+
+    return render_template('players.html', players=players_database)
+
 
 @app.route('/schedules')
 def schedules():
