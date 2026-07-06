@@ -49,8 +49,6 @@ def leagues():
         league_name = request.form.get('ligalab-name')
         league_season = request.form.get('ligalab-season')
 
-        print(f"DEBUG DATA RECEIVED -> Name: {league_name}, Season: {league_season}")
-
         if league_name and league_season:
             league_counter += 1
 
@@ -65,10 +63,35 @@ def leagues():
     return render_template('leagues.html', leagues=leagues_database)
 
     
+teams_database = [{
+    "id": "TM-2026-01",
+    "name": "Spurs",
+    "color": "Gray",
+    "roster_size" : 0
+}]
 
-@app.route('/teams')
+team_counter = 1
+@app.route('/teams', methods=['GET', 'POST'])
 def teams():
-    return render_template('teams.html')
+    global team_counter
+
+    if request.method == 'POST':
+        team_name = request.form.get('ligalab-team-name')
+        team_color = request.form.get('ligalab-team-color')
+
+        if team_name and team_color:
+            team_counter += 1
+
+        new_team = {
+            "id": f"TM-2026-{team_counter}",
+            "name": team_name,
+            "color": team_color,
+            "roster_size": 0
+        }
+
+        teams_database.append(new_team)
+    
+    return render_template('teams.html', teams=teams_database)
 
 @app.route('/players')
 def players():

@@ -15,8 +15,8 @@
                         <a href="{{ url_for('home')}}" class="menu-item">Home</a>
                         <a href="{{ url_for('leagues') }}" class="menu-item">Leagues</a>
                         <a href="{{ url_for('teams')}}" class="menu-item active">Teams</a>
-                        <a href="#" class="menu-item">Players</a>
-                        <a href="#" class="menu-item">Schedule Generator</a>
+                        <a href="{{ url_for('players')}}" class="menu-item">Players</a>
+                        <a href="{{ url_for('schedules')}}" class="menu-item">Schedule Generator</a>
                     </nav>
 
                     <div class="sidebar-user-badge">Coach Michelle</div>
@@ -33,14 +33,14 @@
                 <div class="control-deck">
                     <div class="form-card">
                         <h3>Register Teams</h3>
-                        <form action="#" method="POST">
+                        <form action="{{ url_for('teams') }}" method="POST">
                             <div class="input-group">
                                 <label for="team-name">Team Name</label>
-                                <input type="text" id="team-name" placeholder="Spurs">
+                                <input type="text" id="team-name" name="ligalab-team-name"  placeholder="Spurs">
                             </div>
                             <div class="input-group">
                                 <label for="team-color">Team Color</label>
-                                <input type="text" id="team-color" placeholder="Yellow">
+                                <input type="text" id="team-color" name="ligalab-team-color" placeholder="Yellow">
                             </div>
                             <button type="submit" class="btn-primary-action">Save Team</button>
                         </form>
@@ -61,12 +61,20 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {% for team in teams %}
                             <tr>
-                                <td><strong>TM-2026-01</strong></td>
-                                <td>Spurs</td>
-                                <td>Gray</td>
-                                <td><span style="color: #64749B; font-weight: 600;">0 Players</span></td>
+                                <td><strong>{{ team.id }}</strong></td>
+                                <td>{{ team.name }}</td>
+                                <td>{{ team.color }}</td>
+                                <td><span style="color: #64749B; font-weight: 600;">{{ team.roster_size }} Players</span></td>
                             </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="4" style="text-align: center; color: #9413B8">
+                                    No registered Team yet.
+                                </td>
+                            </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
