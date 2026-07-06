@@ -33,9 +33,38 @@ def home_gateway():
 def home():
     return render_template('home.html')
 
-@app.route('/leagues')
+
+leagues_database = [
+    {"id": "LG-2026-101", "name" : "CICS Intramurals", "season" : "First Term 2026", "teams" : 0}
+]
+
+league_counter = 101
+
+@app.route('/leagues', methods=['GET', 'POST'])
 def leagues():
-    return render_template('leagues.html')
+    global league_counter
+
+    # Check if the user click the submit button
+    if request.method == 'POST':
+        league_name = request.form.get('ligalab-name')
+        league_season = request.form.get('ligalab-season')
+
+        print(f"DEBUG DATA RECEIVED -> Name: {league_name}, Season: {league_season}")
+
+        if league_name and league_season:
+            league_counter += 1
+
+            new_league = {
+                "id": f"LG-2026-{league_counter}",
+                "name": league_name,
+                "season": league_season,
+                "teams" : 0
+            }
+
+            leagues_database.append(new_league)
+    return render_template('leagues.html', leagues=leagues_database)
+
+    
 
 @app.route('/teams')
 def teams():
@@ -44,6 +73,10 @@ def teams():
 @app.route('/players')
 def players():
     return render_template('players.html')
+
+@app.route('/schedules')
+def schedules():
+    return render_template('schedule.html')
 
 @app.route('/dashboard')
 def dashboard_view():
