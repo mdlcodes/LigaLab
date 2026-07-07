@@ -10,6 +10,7 @@ app = Flask(__name__)
 DB_FILE = 'database.json'
 TEAMS_FILE = 'teams.json'
 PLAYERS_FILE = 'players.json'
+LEAGUES_FILE = 'leagues.json'
 
 #reads the json text file
 def load_database():
@@ -49,6 +50,19 @@ def save_players(data):
     with open(PLAYERS_FILE, 'w') as file:
         json.dump(data, file, indent=4)
 
+
+#LOAD DATA AND SAVE(LEAGUESS)
+def load_leagues():
+    if not os.path.exists(LEAGUES_FILE):
+        return []
+    with open(LEAGUES_FILE, 'r') as file:
+        return json.load(file)
+
+def save_leagues(data):
+    with open(LEAGUES_FILE, 'w') as file:
+        json.dump(data, file, indent=4)
+    
+
 @app.route('/')
 def home_gateway():
     # Show the clean Split Hero signup/login gate first
@@ -59,13 +73,10 @@ def home():
     return render_template('home.html')
 
 
-leagues_database = []
-
-league_counter = 101
-
 @app.route('/leagues', methods=['GET', 'POST'])
 def leagues():
-    global league_counter
+    
+    leagues_database = load_leagues()
 
     # Check if the user click the submit button
     if request.method == 'POST':
@@ -73,16 +84,19 @@ def leagues():
         league_season = request.form.get('ligalab-season')
 
         if league_name and league_season:
-            league_counter += 1
 
             new_league = {
-                "id": f"LG-2026-{league_counter}",
+                "id": f"LG-2026-{101 + len(leagues_database)}",
                 "name": league_name,
                 "season": league_season,
                 "teams" : 0
             }
 
             leagues_database.append(new_league)
+            save_leagues(leagues_database)
+
+            return redirect(url_for('leagues'))
+        
     return render_template('leagues.html', leagues=leagues_database)
 
 
