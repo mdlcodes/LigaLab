@@ -1,12 +1,14 @@
-from flask import Flask, jsonify, render_template, request
-# Import the function from ligalab.py
-from ligalab import team_roster, generate_team_insights
 import json
 import os
+from flask import Flask, jsonify, render_template, request, redirect, url_for
+# Import the function from ligalab.py
+from ligalab import team_roster, generate_team_insights
+
 
 app = Flask(__name__)
 
 DB_FILE = 'database.json'
+TEAMS_FILE = 'teams.json'
 
 #reads the json text file
 def load_database():
@@ -24,6 +26,17 @@ def save_database(data):
         # json.dump writes it into string literal, indent = 4 for spacing
         json.dump(data, file, indent = 4)
 
+#Load data from the hard drive
+def load_teams():
+    if not os.path.exists(TEAMS_FILE):
+        return []
+    with open(TEAMS_FILE, 'r') as file:
+        return json.load(file)
+    
+def save_teams(data):
+    with open(TEAMS_FILE, 'w') as file:
+        json.dump(data, file, indent=4)
+
 @app.route('/')
 def home_gateway():
     # Show the clean Split Hero signup/login gate first
@@ -34,9 +47,7 @@ def home():
     return render_template('home.html')
 
 
-leagues_database = [
-    {"id": "LG-2026-101", "name" : "CICS Intramurals", "season" : "First Term 2026", "teams" : 0}
-]
+leagues_database = []
 
 league_counter = 101
 
@@ -62,18 +73,12 @@ def leagues():
             leagues_database.append(new_league)
     return render_template('leagues.html', leagues=leagues_database)
 
-    
-teams_database = [{
-    "id": "TM-2026-01",
-    "name": "Spurs",
-    "color": "Gray",
-    "roster_size" : 0
-}]
 
-team_counter = 1
 @app.route('/teams', methods=['GET', 'POST'])
 def teams():
-    global team_counter
+
+    teams_database = load_teams()
+    team_counter = 100 + len(teams_database)
 
     if request.method == 'POST':
         team_name = request.form.get('ligalab-team-name')
@@ -82,15 +87,19 @@ def teams():
         if team_name and team_color:
             team_counter += 1
 
-        new_team = {
-            "id": f"TM-2026-{team_counter}",
-            "name": team_name,
-            "color": team_color,
-            "roster_size": 0
-        }
+            new_team = {
+                "id": f"TM-2026-{team_counter}",
+                "name": team_name,
+                "color": team_color,
+                "roster_size": 0
+            }
 
-        teams_database.append(new_team)
-    
+            teams_database.append(new_team)
+            save_teams(teams_database)
+
+            #fixes the refresh problem
+        return redirect(url_for('teams'))
+        
     return render_template('teams.html', teams=teams_database)
 
 
@@ -111,12 +120,12 @@ def players():
         if player_name and player_number and player_team:
             player_counter += 1
 
-        new_player={
-            "name": player_name,
-            "number": player_number,
-            "teams": player_team,
-            "status": "Active Roster"
-        }
+            new_player={
+                "name": player_name,
+                "number": player_number,
+                "teams": player_team,
+                "status": "Active Roster"
+            }
 
         players_database.append(new_player)
 
