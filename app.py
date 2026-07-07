@@ -9,6 +9,7 @@ app = Flask(__name__)
 
 DB_FILE = 'database.json'
 TEAMS_FILE = 'teams.json'
+PLAYERS_FILE = 'players.json'
 
 #reads the json text file
 def load_database():
@@ -26,7 +27,7 @@ def save_database(data):
         # json.dump writes it into string literal, indent = 4 for spacing
         json.dump(data, file, indent = 4)
 
-#Load data from the hard drive
+#Load data from the hard drive (TEAMS)
 def load_teams():
     if not os.path.exists(TEAMS_FILE):
         return []
@@ -35,6 +36,17 @@ def load_teams():
     
 def save_teams(data):
     with open(TEAMS_FILE, 'w') as file:
+        json.dump(data, file, indent=4)
+
+#Load data from the hard drive (PLAYERS)
+def load_players():
+    if not os.path.exists(PLAYERS_FILE):
+        return []
+    with open(PLAYERS_FILE, 'r') as file:
+        return json.load(file)
+    
+def save_players(data):
+    with open(PLAYERS_FILE, 'w') as file:
         json.dump(data, file, indent=4)
 
 @app.route('/')
@@ -104,13 +116,10 @@ def teams():
 
 
 #PLAYER
-players_database = []
-
-player_counter = 1
-
 @app.route('/players', methods=['GET', 'POST'])
 def players():
-    global player_counter
+    
+    players_database = load_players()
 
     if request.method == 'POST':
         player_name = request.form.get('ligalab-player-name')
@@ -118,7 +127,6 @@ def players():
         player_team = request.form.get('ligalab-player-team')
 
         if player_name and player_number and player_team:
-            player_counter += 1
 
             new_player={
                 "name": player_name,
@@ -127,7 +135,10 @@ def players():
                 "status": "Active Roster"
             }
 
-        players_database.append(new_player)
+            players_database.append(new_player)
+            save_players(players_database)
+
+            return redirect(url_for('players'))
 
     return render_template('players.html', players=players_database)
 
