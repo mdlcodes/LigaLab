@@ -104,6 +104,8 @@ def leagues():
 def teams():
 
     teams_database = load_teams()
+    leagues_database = load_leagues()
+
     team_counter = 100 + len(teams_database)
 
     if request.method == 'POST':
@@ -126,7 +128,7 @@ def teams():
             #fixes the refresh problem
         return redirect(url_for('teams'))
         
-    return render_template('teams.html', teams=teams_database)
+    return render_template('teams.html', teams=teams_database, leagues=leagues_database)
 
 
 #PLAYER
@@ -134,6 +136,7 @@ def teams():
 def players():
     
     players_database = load_players()
+    teams_database = load_teams()
 
     if request.method == 'POST':
         player_name = request.form.get('ligalab-player-name')
@@ -154,7 +157,7 @@ def players():
 
             return redirect(url_for('players'))
 
-    return render_template('players.html', players=players_database)
+    return render_template('players.html', players=players_database, teams=teams_database)
 
 
 @app.route('/schedules')

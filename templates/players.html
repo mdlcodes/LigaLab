@@ -47,7 +47,13 @@
 
                                 <div class="input-group">
                                     <label for="player-team">Player Team</label>
-                                    <input type="text" placeholder="Spurs" name="ligalab-player-team">
+                                    <select id="player-team" name="ligalab-player-team" required>
+                                        <option value="" disabled selected>-- Select a Registered Squad --</option>
+
+                                        {% for team in teams%}
+                                        <option value="{{ team.name }}">{{ team.name }} ({{ team.color }})</option>
+                                        {% endfor %}
+                                    </select>
                                 </div>
 
                                 <button type="submit" class="btn-primary-action">Save Player</button>
@@ -71,19 +77,17 @@
                                 <tbody>
                                     {% for player in players %}
                                     <tr>
-                                        <th><strong>{{ player.number }}</strong></th>
-                                        <th>{{ player.name }}</th>
-                                        <th>{{ player.teams }}</th>
-                                        <th><span style="color: #64748B; font-weight: 600;">Active</span></th>
+                                        <td><strong>#{{ player.number }}</strong></td>
+                                        <td>{{ player.name }}</td>
+                                        <td>{{ player.team }}</td>
+                                        <td><span style="color: #64748B; font-weight: 600;">{{ player.status }}</span></td>
                                     </tr>
                                     {% else %}
-
                                     <tr>
-                                        <td colspan="4" style="text-align:center; color: #94A3B8; font-style: italic; padding: 20px;">
-                                            NO registered player yet.
+                                        <td colspan="4" style="text-align: center; color: #94A3B8; font-style: italic; padding: 20px;">
+                                            No registered player yet.
                                         </td>
-                                    </tr>
-                                    {% endfor %}
+                                    </tr> {% endfor %}
                                 </tbody>
                             </table>
                         </div>
