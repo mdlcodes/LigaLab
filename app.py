@@ -77,28 +77,47 @@ def home():
 def leagues():
     
     leagues_database = load_leagues()
+    teams_database = load_teams()
+    players_database = load_players()
 
-    # Check if the user click the submit button
-    if request.method == 'POST':
-        league_name = request.form.get('ligalab-name')
-        league_season = request.form.get('ligalab-season')
+    for league in leagues_database: 
+        # get the teams whose league is the same with the league looping
+        matching_teams = [t for t in teams_database if t.get('league') == league['name']]
+        # saves the number of teams on teams.json
+        league['teams'] = len(matching_teams)
 
-        if league_name and league_season:
-
-            new_league = {
-                "id": f"LG-2026-{101 + len(leagues_database)}",
-                "name": league_name,
-                "season": league_season,
-                "teams" : 0
-            }
-
-            leagues_database.append(new_league)
-            save_leagues(leagues_database)
-
-            return redirect(url_for('leagues'))
-        
+        allowed_teams = [t['name'] for t in matching_teams]
+        league['players'] = len([p for p in players_database if p.get('team') in allowed_teams])
+    
     return render_template('leagues.html', leagues=leagues_database)
 
+
+@app.route('/leagues/<league_name>')
+def league_detail(league_name):
+    all_leagues = load_leagues()
+    all_teams = load_teams()
+    all_players = load_players()
+
+    current_league = None
+
+    for league in all_leagues:
+        if league['name'] == league_name:
+            current_league = league_name
+            break
+
+    if not current_league:
+        return "League not found", 404
+    
+    filtered_teams = [team for team in all_teams if team.get('league') == league_name]
+    allowed_teams = [team['name'] for team in filtered_teams]
+    filtered_players = [player for player in all_players if player.get('team') in allowed_teams]
+
+    return render_template(
+        'league_detail.html',
+        league = current_league,
+        teams = filtered_teams,
+        players = filtered_players
+    )
 
 @app.route('/teams', methods=['GET', 'POST'])
 def teams():
@@ -111,14 +130,16 @@ def teams():
     if request.method == 'POST':
         team_name = request.form.get('ligalab-team-name')
         team_color = request.form.get('ligalab-team-color')
+        team_league = request.form.get('ligalab-team-league')
 
-        if team_name and team_color:
+        if team_name and team_color and team_league:
             team_counter += 1
 
             new_team = {
                 "id": f"TM-2026-{team_counter}",
                 "name": team_name,
                 "color": team_color,
+                "league": team_league,
                 "roster_size": 0
             }
 
