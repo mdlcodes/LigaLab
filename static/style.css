@@ -553,3 +553,35 @@
     border-radius: 6px;
     background-color: #F8FAFC;
 }
+
+/* NEW UI DESIGN FOR LEAGUE PAGE*/
+.dashboard-content{
+    padding: 40px;
+}
+.action-header-row{
+    margin-bottom: 32px;
+}
+.btn-add-hero{
+    display:block;
+    width: 100%;
+    background-color: #FF7A00;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+    padding: 16px;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.btn-add-hero:hover{
+    background-color: #E06B00;
+}
+
+.panel-header h3{
+     font-size: 20px; 
+     font-weight: 700; 
+     color: #0F172A;
+}
+
