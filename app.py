@@ -91,33 +91,65 @@ def leagues():
     
     return render_template('leagues.html', leagues=leagues_database)
 
+@app.route('/leagues/create', methods=['GET', 'POST'])
+def create_league():
+    if request.method == 'POST':
+        league_name = request.form.get('league_name')
+        league_season = request.form.get('league_season')
+        league_type = request.form.get('league_type')
 
-@app.route('/leagues/<league_name>')
-def league_detail(league_name):
-    all_leagues = load_leagues()
-    all_teams = load_teams()
-    all_players = load_players()
+        if league_name and league_season:
 
-    current_league = None
+            leagues_db = load_leagues()
+            teams_db = load_teams()
+            players_db = load_players()
 
-    for league in all_leagues:
-        if league['name'] == league_name:
-            current_league = league_name
-            break
+            new_league = {
+                "id": f"LG-{101 + len(leagues_db)}",
+                "name": league_name, 
+                "season": league_season,
+                "type": league_type,
+                "status": "Registration Open"
+            }
 
-    if not current_league:
-        return "League not found", 404
-    
-    filtered_teams = [team for team in all_teams if team.get('league') == league_name]
-    allowed_teams = [team['name'] for team in filtered_teams]
-    filtered_players = [player for player in all_players if player.get('team') in allowed_teams]
+            leagues_db.append(new_league)
+            save_leagues(leagues_db)
 
-    return render_template(
-        'league_detail.html',
-        league = current_league,
-        teams = filtered_teams,
-        players = filtered_players
-    )
+            team_names = request.form.getlist('team_name[]')
+            team_colors = request.form.getlist('team_colors[]')
+            player_data_strings = request.form.getlist('player_rosters[]')
+
+            for i in range(len(team_names)):
+                current_team_name = team_names[i]
+                if current_team_name:
+                    new_team={
+                        "id": f"TM-2026-{101+len(teams_db)}",
+                        "name": current_team_name,
+                        "color": team_colors[i] if i < len(team_colors) else "Default",
+                        "league": league_name
+                    }
+
+                    teams_db.append(new_team)
+
+                    if i < len(player_data_strings) and player_data_strings[i]:
+                        athletes = [name.strip() for name in player_data_strings[i].split(',') if name.strip()]
+                        for num, athlete_name in enumerate(athletes, start=1):
+                            new_player = {
+                                "number": f"{num:02d}",
+                                "name": athlete_name,
+                                "team": current_team_name,
+                                "status": "Active"
+                            }
+                        players_db.append(new_player)
+
+            save_teams(teams_db)
+            save_players(players_db)
+
+            return redirect(url_for('leagues'))
+    return render_template('create_league.html')
+                        
+
+
 
 @app.route('/teams', methods=['GET', 'POST'])
 def teams():
