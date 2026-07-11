@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>LigaLab - Create League</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+    </head>
+    <body class="dashboard-body">
+        <div class="dashboard-wrapper">
+            <aside class="sidebar">
+                <div class="sidebar-brand">LIGALAB</div>
+                <nav class="sidebar-menu">
+                    <a href="{{url_for('home')}}" class="menu-item">Home</a>
+                    <a href="{{url_for('leagues')}}" class="menu-item active">Leagues</a>
+                    <a href="{{url_for('teams')}}" class="menu-item">Teams</a>
+                    <a href="{{url_for('players')}}" class="menu-item">Players</a>
+                    <a href="{{url_for('schedules')}}" class="menu-item">Schedules</a>
+                </nav>
+                <div class="sidebar-user-badge">Coach Michelle</div>
+            </aside>
+
+            <main class="dashboard-content">
+                <div><a href="{{url_for('leagues')}}" class="back-button">← Cancel and Return</a></div>
+                <div class="form-card">
+                    <h2>Save Your League</h2>
+
+                    <form action="{{ url_for('create_league')}}" methos="POST">
+
+                        <div class="creation-grid">
+                            <div class="input-group">
+                                <label> League Name</label>
+                                <input type="text" name="league_name" placeholder="e.g. SFBVL">
+                            </div>
+                            
+                            <div class="input-group">
+                                <label>League Season</label>
+                                <input type="text" name="league_season" placeholder="e.g. 2023">
+                            </div>
+                        </div>
+
+                        <h3>Add Team and Roster</h3>
+                        <div id="teams-container-wrapper">
+                            <div class="team-builder-row">
+                                <div class="sub-input-row">
+                                    <input type="text" name="team_names[]" placeholder="Team Name">
+                                    <input type="text" name="team_colors[]" placeholder="Team Color">
+                                    <button type="button" onclick="addTeamRow()">+</button>
+                                </div>
+                                <input type="text" name="player_rosters[]" placeholder="Player Name">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-primary-action">Save Your League</button>
+                    </form>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>

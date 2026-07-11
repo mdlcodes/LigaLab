@@ -585,3 +585,41 @@
      color: #0F172A;
 }
 
+.back-button{
+    text-decoration: none;
+    color: #64748B;
+    font-weight: 600;
+}
+
+.form-card{
+    max-width: 800px;
+    margin: 0 auto; 
+    padding: 40px;
+}
+
+.form-card h2{
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 32px; 
+    color: #FF7A00;
+}
+.team-builder-row input{
+    background-color: #E2E8F0;
+    border: none;
+    padding: 10px;
+    width: 50%;
+    border-radius: 6px;
+    margin-bottom: 8px
+}
+
+.sub-input-row button{
+    padding: 10px;
+    background: #ff7a00;
+    border-radius: 6px;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #ffffff;
+}

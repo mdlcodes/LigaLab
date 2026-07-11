@@ -246,30 +246,7 @@ def get_insights():
     insights_data = generate_team_insights(team_roster)
     return jsonify(insights_data)
 
-@app.route('/create_league', methods=['POST'])
-def create_league():
-    league_data = request.get_json()
-    username = league_data.get('username')
-    league_name = league_data.get('league_name')
 
-    if not username or not league_name:
-        return jsonify({"Error": "Missing username or league anme"}), 400
-    
-    db = load_database()
-    #Check if the username really exists
-    if username not in db['users']:
-        return jsonify({"error": "Username not found"}), 404
-    #Avoid duplicate league 
-    if league_name in db["users"][username]['custom_leagues']:
-        return jsonify({"Error": "League name already exists"})
-    
-    db['users'][username]["custom_leagues"][league_name] = {
-        "teams": {}
-    }
-
-    save_database(db)
-
-    return jsonify({"Message" : f"League '{league_name}' create succesfully for user '{username}'!"}), 201
 
 @app.route('/add_team', methods=['POST'])
 def add_team():
