@@ -623,3 +623,43 @@
     cursor: pointer;
     color: #ffffff;
 }
+
+.accordion-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    margin: 24px 0 16px 0;
+    padding-bottom: 8px;
+    user-select: none;
+}
+
+.accordion-header h3{
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+}
+.caret{
+    font-size: 24px;
+    font-weight: vold;
+    color: #0f172a;
+}
+
+.accordion-content{
+    display: none;
+    
+}
+
+.accordion-content.active{
+    display:block;
+}
+
+select{
+    background-color: #E2E8F0;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #0f172a;
+}

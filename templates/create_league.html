@@ -1,60 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>LigaLab - Create League</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
-    </head>
-    <body class="dashboard-body">
-        <div class="dashboard-wrapper">
-            <aside class="sidebar">
-                <div class="sidebar-brand">LIGALAB</div>
-                <nav class="sidebar-menu">
-                    <a href="{{url_for('home')}}" class="menu-item">Home</a>
-                    <a href="{{url_for('leagues')}}" class="menu-item active">Leagues</a>
-                    <a href="{{url_for('teams')}}" class="menu-item">Teams</a>
-                    <a href="{{url_for('players')}}" class="menu-item">Players</a>
-                    <a href="{{url_for('schedules')}}" class="menu-item">Schedules</a>
-                </nav>
-                <div class="sidebar-user-badge">Coach Michelle</div>
-            </aside>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create League</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="dashboard-body">
+    <div class="dashboard-wrapper">
+        <aside class="sidebar">
+            <div class="sidebar-brand">LIGALAB</div>
+            <nav class="sidebar-menu">
+                <a href="{{ url_for('home') }}" class="menu-item">Home</a>
+                <a href="{{ url_for('leagues') }}" class="menu-item active">Leagues</a>
+                <a href="{{ url_for('teams') }}" class="menu-item">Teams</a>
+                <a href="{{ url_for('players') }}" class="menu-item">Players</a>
+                <a href="{{ url_for('schedules') }}" class="menu-item">Schedules</a>
+            </nav>
+            <div class="sidebar-user-badge">Coach Michelle</div>
+        </aside>
 
-            <main class="dashboard-content">
-                <div><a href="{{url_for('leagues')}}" class="back-button">← Cancel and Return</a></div>
-                <div class="form-card">
-                    <h2>Save Your League</h2>
+        <main class="dashboard-content">
+            <div>
+                <a href="{{ url_for('leagues')}}" class="back-button"> ← Go Back</a>
+            </div>
 
-                    <form action="{{ url_for('create_league')}}" methos="POST">
+            <div class="form-card">
+                <h2>Save Your League</h2>
 
-                        <div class="creation-grid">
-                            <div class="input-group">
-                                <label> League Name</label>
-                                <input type="text" name="league_name" placeholder="e.g. SFBVL">
-                            </div>
-                            
-                            <div class="input-group">
-                                <label>League Season</label>
-                                <input type="text" name="league_season" placeholder="e.g. 2023">
-                            </div>
+                <form action="{{ url_for('create_league')}}" method="POST">
+                    <div class="creation-grid">
+                        <div class="input-group">
+                            <label>League Name</label>
+                            <input type="text" name="league_name" placeholder="Enter league name" required>
                         </div>
 
-                        <h3>Add Team and Roster</h3>
+                        <div class="input-group">
+                            <label>League Season</label>
+                            <input type="text" name="league_season" placeholder="Enter league season">
+                        </div>
+
+                        <div class="input-group">
+                            <label>League Type</label>
+                            <input type="text" name="league_type" placeholder="Enter league type" required>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label>League Status</label>
+                            <select name="league_status" required>
+                                <option value="" disabled selected>Select status</option>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="accordion-header" onclick="toggleSection('team-section')">
+                        <h3>Add Teams</h3>
+                        <span class="caret">&#x2304;</span>
+                    </div>
+
+                    <!-- Team Section -->
+                    <div id="team-section" class="accordion-content">
                         <div id="teams-container-wrapper">
                             <div class="team-builder-row">
                                 <div class="sub-input-row">
-                                    <input type="text" name="team_names[]" placeholder="Team Name">
-                                    <input type="text" name="team_colors[]" placeholder="Team Color">
+                                    <input type="text" name="team_name[]" placeholder="Enter team name" required>
+                                    <input type="text" name="team_coach[]" placeholder="Enter coach name" required>
+                                    <input type="text" name="team_colors[]" placeholder="Enter team colors" required>
                                     <button type="button" onclick="addTeamRow()">+</button>
                                 </div>
-                                <input type="text" name="player_rosters[]" placeholder="Player Name">
                             </div>
                         </div>
-
-                        <button type="submit" class="btn-primary-action">Save Your League</button>
-                    </form>
-                </div>
-            </main>
-        </div>
-    </body>
+                    </div>
+                    
+                    <!--Player Form Section-->
+                    <div class="accordion-header" onclick="toggleSection('player-section')">
+                        <h3>Add Players</h3>
+                        <span class="caret">&#x2304;</span>
+                    </div>
+                    <div id="player-section" class="accordion-content">
+                        <div id="players-container-wrapper">
+                            <div class="team-builder-row">
+                                <div class="sub-input-row">
+                                    <input type="text" name="player_name[]" placeholder="Enter player name" required>
+                                    <input type="text" name="player_position[]" placeholder="Enter player position" required>
+                                    <input type="text" name="player_number[]" placeholder="Enter player number" required>
+                                    <select name="player_team[]">
+                                        <option value="">Select team</option>
+                                    </select>
+                                    <button type="button" onclick="addPlayerRow()">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <button type="submit" class="btn-add-hero">Save League</button>
+                </form>
+            </div>
+        </main>
+    </div>
+    
+    <script src="{{ url_for('static', filename='create_league.js') }}"></script>
+    
+</body>
 </html>
