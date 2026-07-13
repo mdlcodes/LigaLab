@@ -97,6 +97,7 @@ def create_league():
         league_name = request.form.get('league_name')
         league_season = request.form.get('league_season')
         league_type = request.form.get('league_type')
+        league_status = request.form.get('league_status')
 
         if league_name and league_season:
 
@@ -109,15 +110,15 @@ def create_league():
                 "name": league_name, 
                 "season": league_season,
                 "type": league_type,
-                "status": "Registration Open"
+                "status": league_status if league_status else "Registration Open"
             }
 
             leagues_db.append(new_league)
             save_leagues(leagues_db)
 
             team_names = request.form.getlist('team_name[]')
+            team_coaches = request.form.getlist('team_coach[]')
             team_colors = request.form.getlist('team_colors[]')
-            player_data_strings = request.form.getlist('player_rosters[]')
 
             for i in range(len(team_names)):
                 current_team_name = team_names[i]
@@ -125,22 +126,29 @@ def create_league():
                     new_team={
                         "id": f"TM-2026-{101+len(teams_db)}",
                         "name": current_team_name,
+                        "coach": team_coaches[i] if i < len(team_coaches) else "TBA",
                         "color": team_colors[i] if i < len(team_colors) else "Default",
                         "league": league_name
                     }
 
                     teams_db.append(new_team)
 
-                    if i < len(player_data_strings) and player_data_strings[i]:
-                        athletes = [name.strip() for name in player_data_strings[i].split(',') if name.strip()]
-                        for num, athlete_name in enumerate(athletes, start=1):
-                            new_player = {
-                                "number": f"{num:02d}",
-                                "name": athlete_name,
-                                "team": current_team_name,
-                                "status": "Active"
-                            }
-                        players_db.append(new_player)
+            player_names = request.form.getlist('player_name[]')
+            player_positions = request.form.getlist('player_position[]')
+            player_numbers = request.form.getlist('player_number[]')
+            player_teams = request.form.getlist('player_team[]')
+
+            for i in range(len(player_names)):
+                if player_names[i]:
+                    new_player = {
+                        "name": player_names[i],
+                        "position": player_positions[i] if i < len(player_positions) else "Unknown",
+                        "number": player_numbers[i] if i < len(player_numbers) else "00",
+                        "team": player_teams[i] if i < len(player_teams) else "Unknown",
+                        "status": "Active"
+
+                    }
+                    players_db.append(new_player)
 
             save_teams(teams_db)
             save_players(players_db)
