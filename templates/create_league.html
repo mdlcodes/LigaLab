@@ -28,11 +28,12 @@
             <div class="form-card">
                 <h2>Save Your League</h2>
 
-                <form action="{{ url_for('create_league')}}" method="POST">
+                <form action="{{ url_for('create_league')}}" method="POST" onsubmit="return validateLeagueForm(event)">
                     <div class="creation-grid">
                         <div class="input-group">
                             <label>League Name</label>
                             <input type="text" name="league_name" placeholder="Enter league name" required>
+                            <span id="league-error" class="error-text"></span>
                         </div>
 
                         <div class="input-group">
@@ -42,7 +43,7 @@
 
                         <div class="input-group">
                             <label>League Type</label>
-                            <input type="text" name="league_type" placeholder="Enter league type" required>
+                            <input type="text" name="league_type" placeholder="Enter league type">
                         </div>
                         
                         <div class="input-group">
@@ -82,6 +83,8 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- validation error message -->
+                        <div id="team-add-error" class="error-text" ></div>
                         <button type="button" class="btn-secondary-form" onclick="addTeamRow()">+ Add Another Team</button>
                     </div>
                     
@@ -120,6 +123,7 @@
                         </div>
                         <button type="button" class="btn-secondary-form" onclick="addPlayerRow()">+ Add Another Player</button>
                     </div>
+                        <div id="player-add-error" class="error-text"></div>
                         <button type="submit" class="btn-add-hero">Save League</button>
                 </form>
             </div>

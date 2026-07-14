@@ -36,6 +36,17 @@ function updateTeamDropdowns(){
 }
 
 function addTeamRow(){
+    const teamNames = document.getElementsByName('team_name[]');
+    const lastTeamName = teamNames[teamNames.length -1].value.trim();
+    const errorEl = document.getElementById('team-add-error');
+
+    if(lastTeamName === ''){
+        errorEl.innerText = "Please fill in the team name first before adding a new team, Coach!.";
+        return;
+    }
+
+    errorEl.innerText = "";
+
     const wrapper = document.getElementById('teams-container-wrapper');
     const newRow = document.createElement('div');
     newRow.className = 'team-builder-row';
@@ -64,6 +75,17 @@ function addTeamRow(){
 }
 
 function addPlayerRow() {
+    const playerNames = document.getElementsByName('player_name[]');
+    const lastPlayerName = playerNames[playerNames.length - 1].value.trim();
+    const errorEl = document.getElementById('player-add-error');
+
+    if(lastPlayerName === ''){
+        errorEl.innerText = "Please fill in the player name first before adding a new player, Coach!.";
+        return;
+    }
+
+    errorEl.innerText = "";
+
     const wrapper = document.getElementById('players-container-wrapper');
     const newRow = document.createElement('div');
     newRow.className = 'team-builder-row';
@@ -91,7 +113,21 @@ function addPlayerRow() {
             </div>
         </div>
     `;
-    
+
     wrapper.appendChild(newRow);
     updateTeamDropdowns();
+}
+
+function validateLeagueForm(event) {
+    const leagueName = document.querySelector('input[name="league_name"]').value.trim();
+    const errorEl = document.getElementById('league-error');
+
+    if(leagueName === ''){
+        event.preventDefault();
+        errorEl.innerText = "Please fill in the League Name, Coach!"
+        return false;
+    }
+
+    errorEl.innerText = "";
+    return true;
 }
