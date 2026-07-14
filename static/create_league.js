@@ -4,7 +4,6 @@ function toggleSection(sectionId){
 }
 
 function updateTeamDropdowns(){
-    console.log("The function is running!");
     const teamInputs = document.querySelectorAll('input[name="team_name[]"]');
     const currentTeams = [];
 
@@ -42,11 +41,20 @@ function addTeamRow(){
     newRow.className = 'team-builder-row';
     
     newRow.innerHTML = `
-        <div class="sub-input-row">
-            <input type="text" name="team_name[]" placeholder="Enter team name" oninput="updateTeamDropdowns()" required>
-            <input type="text" name="team_coach[]" placeholder="Enter coach name" required>
-            <input type="text" name="team_colors[]" placeholder="Enter team colors" required>
-            <button type="button" onclick="this.parentElement.parentElement.remove(); updateTeamDropdowns();" style="background-color: #ef4444; color: white;">-</button>
+        <button type="button" class="btn-remove-row" onclick="this.parentElement.remove(); updateTeamDropdowns();" title="Remove Team">✕</button>
+        <div class="dynamic-grid">
+            <div class="input-group">
+                <label>Team Name</label>
+                <input type="text" name="team_name[]" placeholder="Enter team name" oninput="updateTeamDropdowns()" required>
+            </div>
+            <div class="input-group">
+                <label>Coach Name</label>
+                <input type="text" name="team_coach[]" placeholder="Enter coach name" required>
+            </div>
+            <div class="input-group">
+                <label>Team Colors</label>
+                <input type="text" name="team_colors[]" placeholder="Enter team colors" required>
+            </div>
         </div>
     `;
 
@@ -61,16 +69,29 @@ function addPlayerRow() {
     newRow.className = 'team-builder-row';
     
     newRow.innerHTML = `
-        <div class="sub-input-row">
-            <input type="text" name="player_name[]" placeholder="Enter player name" required>
-            <input type="text" name="player_position[]" placeholder="Enter player position" required>
-            <input type="text" name="player_number[]" placeholder="Enter player number" required>
-            <select name="player_team[]">
-                <option value="">Select team</option>
-            </select>
-            <button type="button" onclick="this.parentElement.parentElement.remove()" style="background-color: #ef4444; color: white;">-</button>
+        <button type="button" class="btn-remove-row" onclick="this.parentElement.remove()" title="Remove Player">✕</button>
+        <div class="dynamic-grid">
+            <div class="input-group">
+                <label>Player Name</label>
+                <input type="text" name="player_name[]" placeholder="Enter player name" required>
+            </div>
+            <div class="input-group">
+                <label>Position</label>
+                <input type="text" name="player_position[]" placeholder="Enter player position" required>
+            </div>
+            <div class="input-group">
+                <label>Jersey Number</label>
+                <input type="text" name="player_number[]" placeholder="Enter player number" required>
+            </div>
+            <div class="input-group">
+                <label>Select Team</label>
+                <select name="player_team[]">
+                    <option value="">Select team</option>
+                </select>
+            </div>
         </div>
     `;
+    
     wrapper.appendChild(newRow);
     updateTeamDropdowns();
 }

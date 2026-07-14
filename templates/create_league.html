@@ -64,14 +64,25 @@
                     <div id="team-section" class="accordion-content">
                         <div id="teams-container-wrapper">
                             <div class="team-builder-row">
-                                <div class="sub-input-row">
-                                    <input type="text" name="team_name[]" placeholder="Enter team name"  oninput="updateTeamDropdowns()" required>
-                                    <input type="text" name="team_coach[]" placeholder="Enter coach name" required>
-                                    <input type="text" name="team_colors[]" placeholder="Enter team colors" required>
-                                    <button type="button" onclick="addTeamRow()">+</button>
+                                <div class="dynamic-grid">
+                                    <div class="input-group">
+                                        <label>Team Name</label>
+                                        <input type="text" name="team_name[]" placeholder="Enter team name" oninput="updateTeamDropdowns()" required>
+                                    </div>
+
+                                    <div class="input-group">
+                                        <label>Coach Name</label>
+                                        <input type="text" name="team_coach[]" placeholder="Enter coach name" required>
+                                    </div>
+
+                                    <div class="input-group">
+                                        <label>Team Colors</label>
+                                        <input type="text" name="team_colors[]" placeholder="Enter team colors" required>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <button type="button" class="btn-secondary-form" onclick="addTeamRow">+ Add Another Team</button>
                     </div>
                     
                     <!--Player Form Section-->
@@ -82,17 +93,32 @@
                     <div id="player-section" class="accordion-content">
                         <div id="players-container-wrapper">
                             <div class="team-builder-row">
-                                <div class="sub-input-row">
-                                    <input type="text" name="player_name[]" placeholder="Enter player name" required>
-                                    <input type="text" name="player_position[]" placeholder="Enter player position" required>
-                                    <input type="text" name="player_number[]" placeholder="Enter player number" required>
-                                    <select name="player_team[]">
-                                        <option value="">Select team</option>
-                                    </select>
-                                    <button type="button" onclick="addPlayerRow()">+</button>
+                                <div class="dynamic-grid">
+                                    <div class="input-group">
+                                        <label>Player Name</label>
+                                        <input type="text" name="player_name[]" placeholder="Enter player name" required>
+                                    </div>
+
+                                    <div class="input-group">
+                                        <label>Player Position</label>
+                                        <input type="text" name="player_position[]" placeholder="Enter player position" required>
+                                    </div>
+
+                                    <div class="input-group">
+                                        <label>Player Number</label>
+                                        <input type="text" name="player_number[]" placeholder="Enter player number" required>
+                                    </div>
+
+                                    <div class="input-group">
+                                        <label>Select Team</label>
+                                        <select name="player_team[]">
+                                            <option value="">Select team</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <button type="button" class="btn-secondary-form" onclick="addPlayerRow()">+ Add Another Player</button>
                     </div>
                         <button type="submit" class="btn-add-hero">Save League</button>
                 </form>
