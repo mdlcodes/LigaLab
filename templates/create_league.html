@@ -65,7 +65,7 @@
                         <div id="teams-container-wrapper">
                             <div class="team-builder-row">
                                 <div class="sub-input-row">
-                                    <input type="text" name="team_name[]" placeholder="Enter team name" required>
+                                    <input type="text" name="team_name[]" placeholder="Enter team name"  oninput="updateTeamDropdowns()" required>
                                     <input type="text" name="team_coach[]" placeholder="Enter coach name" required>
                                     <input type="text" name="team_colors[]" placeholder="Enter team colors" required>
                                     <button type="button" onclick="addTeamRow()">+</button>
