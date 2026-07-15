@@ -161,37 +161,57 @@ def create_league():
 
 @app.route('/teams', methods=['GET', 'POST'])
 def teams():
-
     teams_database = load_teams()
+    players_database = load_players()
+
+    for team in teams_database:
+        matching_players = [p for p in players_database if p.get('team') == team['name']]
+        team['roster_size'] = len(matching_players)
+    
+    return render_template('teams.html', teams=teams_database)
+
+@app.route('teams/create', methods=['GET', 'POST'])
+def create_teams():
     leagues_database = load_leagues()
 
-    team_counter = 100 + len(teams_database)
-
     if request.method == 'POST':
-        team_name = request.form.get('ligalab-team-name')
-        team_color = request.form.get('ligalab-team-color')
-        team_league = request.form.get('ligalab-team-league')
+        teams_database = load_teams()
+        players_database = load_players()
 
-        if team_name and team_color and team_league:
-            team_counter += 1
+        team_name = request.form.get('team_name')
+        team_coach = request.form.get('team_coach')
+        team_color = request.form.get('team_color')
+        team_league = request.form.get('team_league')
 
+        if team_name:
             new_team = {
-                "id": f"TM-2026-{team_counter}",
                 "name": team_name,
+                "coach": team_coach,
                 "color": team_color,
-                "league": team_league,
-                "roster_size": 0
+                "league": team_league 
             }
 
-            teams_database.append(new_team)
-            save_teams(teams_database)
+        teams_database.append(new_team)
+        save_teams(teams_database)
 
-            #fixes the refresh problem
+        player_names = request.form.getlist('player_name[]')
+        player_positions = request.form.getlist('player_position[]')
+        player_numbers = request.form.getlist('player_number[]')
+
+        for i in range(len(player_names)):
+                if player_names[i].strip():
+                    new_player = {
+                        "name": player_names[i].strip(),
+                        "position": player_positions[i] if i < len(player_positions) else "Unknown",
+                        "number": player_numbers[i] if i < len(player_numbers) else "00",
+                        "team": team_name, 
+                        "status": "Active"
+                    }
+                    players_database.append(new_player)
+        save_players(players_database)
+
         return redirect(url_for('teams'))
-        
-    return render_template('teams.html', teams=teams_database, leagues=leagues_database)
-
-
+    return render_template('create_teams.html', leagues=leagues_database)
 #PLAYER
 @app.route('/players', methods=['GET', 'POST'])
 def players():
