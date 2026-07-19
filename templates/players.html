@@ -1,97 +1,66 @@
-<!DOCTYPE htmL>
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>LigaLab</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LigaLab - Leagues</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+</head>
+<body class="dashboard-body">
+    <div class="dashboard-wrapper">
+        <aside class="sidebar">
+            <div class="sidebar-brand">LIGALAB</div>
+            <nav class="sidebar-menu">
+                <a href="{{ url_for('home')}}" class="menu-item">Home</a>
+                <a href="{{ url_for('leagues') }}" class="menu-item">Leagues</a>
+                <a href="{{ url_for('teams')}}" class="menu-item">Teams</a>
+                <a href="{{ url_for('players')}}" class="menu-item active">Players</a>
+                <a href="{{ url_for('schedules')}}" class="menu-item">Schedule Generator</a>
+            </nav>
+            <div class="sidebar-user-badge">Coach Michelle</div>
+        </aside>
 
-    <body class="dashboard-body">
-        <div class="dashboard-wrapper">
-            <aside class="sidebar">
-                <div class="sidebar-brand">LIGALAB</div>
-                    <nav class="sidebar-menu">
-                        <a href="{{ url_for('home')}}" class="menu-item">Home</a>
-                        <a href="{{ url_for('leagues') }}" class="menu-item">Leagues</a>
-                        <a href="{{ url_for('teams')}}" class="menu-item">Teams</a>
-                        <a href="{{ url_for('players')}}" class="menu-item active">Players</a>
-                        <a href="{{ url_for('schedules')}}" class="menu-item">Schedule Generator</a>
-                    </nav>
+        <main class="dashboard-content">
+            <div class="action-header-row">
+                <a href="{{ url_for('create_player') }}" class="btn-add-hero">+ Add Players</a>
+            </div>
 
-                    <div class="sidebar-user-badge">Coach Michelle</div>
-            </aside>
-
-            <main class="dashboard-content">
-
-                <header class="content-header">
-                    <div class="welcome-block">
-                        <h1>Your Players</h1>
-                    </div>
-
-                    <div class="control-deck">
-
-                        <div class="form-card">
-                            <h3>Add Player</h3>
-
-                            <form action="#" method="POST">
-                                <div class="input-group">
-                                    <label for="player-name">Player Name</label>
-                                    <input type="text" id="player-name" name="ligalab-player-name" placeholder="Wembanyamen" required>
-                                </div>
-
-                                <div class="input-group">
-                                    <label for="player-number">Jersey Number</label>
-                                    <input type="text" id="player-number" name="ligalab-player-number" placeholder="07" required>
-                                </div>
-
-                                <div class="input-group">
-                                    <label for="player-team">Player Team</label>
-                                    <select id="player-team" name="ligalab-player-team" required>
-                                        <option value="" disabled selected>-- Select a Registered Squad --</option>
-
-                                        {% for team in teams%}
-                                        <option value="{{ team.name }}">{{ team.name }} ({{ team.color }})</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-
-                                <button type="submit" class="btn-primary-action">Save Player</button>
-                            </form>
-                        </div>
-
-                        <div class="data-panel">
-                            <div class="panel-header">
-                                <h3>Registered Players</h3>
-                            </div>
-
-                            <table class="data-table">
-                                <thead>
-                                    <tr>
-                                        <th>Jersey Number</th>
-                                        <th>Player Name</th>
-                                        <th>Team</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for player in players %}
-                                    <tr>
-                                        <td><strong>#{{ player.number }}</strong></td>
-                                        <td>{{ player.name }}</td>
-                                        <td>{{ player.team }}</td>
-                                        <td><span style="color: #64748B; font-weight: 600;">{{ player.status }}</span></td>
-                                    </tr>
-                                    {% else %}
-                                    <tr>
-                                        <td colspan="4" style="text-align: center; color: #94A3B8; font-style: italic; padding: 20px;">
-                                            No registered player yet.
-                                        </td>
-                                    </tr> {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </header>
-            </main>
-
+            <div class="data-panel">
+                <div class="panel-header">
+                    <h3>My Players</h3>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Player Name</th>
+                            <th>Position</th>
+                            <th>Number</th>
+                            <th>Team</th>
+                        </tr>
+                    </thead>    
+                    <tbody>
+                        {% for player in players %}
+                        <tr>
+                            <td><strong>{{ player.name }}</strong></td>
+                            <td>{{ player.position }}</td>
+                            <td><span style="font-weight: 600;">{{ player.number }}</span></td>
+                            <td>
+                                {% if player.team and player.team != 'Unassigned' and player.team != ''%}
+                                    {{ player.team }}
+                                {% else %}
+                                <span>Free Agent</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="5" style="text-align: center; color: #94A3B8; font-style: italic; padding: 32px;">No players registered yet.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
