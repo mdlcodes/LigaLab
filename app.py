@@ -170,8 +170,8 @@ def teams():
     
     return render_template('teams.html', teams=teams_database)
 
-@app.route('teams/create', methods=['GET', 'POST'])
-def create_teams():
+@app.route('/teams/create', methods=['GET', 'POST'])
+def create_team():
     leagues_database = load_leagues()
 
     if request.method == 'POST':
@@ -215,30 +215,36 @@ def create_teams():
 #PLAYER
 @app.route('/players', methods=['GET', 'POST'])
 def players():
-    
     players_database = load_players()
+
+    return render_template('players.html', players=players_database)
+
+@app.route('/players/create', methods=['GET', 'POST'])
+def create_player():
     teams_database = load_teams()
 
     if request.method == 'POST':
-        player_name = request.form.get('ligalab-player-name')
-        player_number = request.form.get('ligalab-player-number')
-        player_team = request.form.get('ligalab-player-team')
+        players_database = load_players()
 
-        if player_name and player_number and player_team:
+        player_name = request.form.get('player_name')
+        player_position = request.form.get('player_position')
+        player_number = request.form.get('player_number')
+        player_team = request.form.get('player_team')
 
-            new_player={
-                "name": player_name,
-                "number": player_number,
-                "teams": player_team,
-                "status": "Active Roster"
-            }
+        if player_name:
+            new_player = {
+                "name" : player_name.strip(),
+                "position": player_position if player_position else "Unknown",
+                "number": player_number if player_number else "00",
+                "team" : player_team,
+                "status": "Active"
+            }    
 
             players_database.append(new_player)
             save_players(players_database)
 
-            return redirect(url_for('players'))
-
-    return render_template('players.html', players=players_database, teams=teams_database)
+            return redirect( url_for('players'))
+    return render_template('create_player.html', teams=teams_database)
 
 
 @app.route('/schedules')

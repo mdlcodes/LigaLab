@@ -47,7 +47,7 @@
                             </div>
                         </div>
 
-                        <div class="accordion-header">
+                        <div class="accordion-header" onclick="toggleSection('team-section')">
                             <h3>Assign to Team(Optional)</h3>
                             <span class="caret">&#x2304;</span>
                         </div>
@@ -69,5 +69,7 @@
                 </div>
             </main>
         </div>
+
+        <script src="{{ url_for('static', filename='create_player.js')}}"></script>
     </body>
 </html>
